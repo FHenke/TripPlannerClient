@@ -32,7 +32,31 @@
             nextColor: function(){
                 this.totalNumber++;
                 return this.colorArray[(this.totalNumber - 1) % this.colorArray.length];
+            },
+
+            currentColor: function(){
+                return this.colorArray[this.totalNumber % this.colorArray.length];
             }
+        }
+
+        var testRequestObject = {
+            origin: {
+                city: 'Hannover',
+                country: 'Germany',
+                id: 'GOE'
+            },
+            destination: {
+                city: 'Berlin',
+                country: 'Germany',
+                id: 'BER'
+            }
+
+
+
+        }
+
+        function getRequestObject(){
+
         }
 
         /*function getColor(){
