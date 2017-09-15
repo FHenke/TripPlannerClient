@@ -53,20 +53,22 @@
 
 
 
-       /**/ function getRequestObject(){
+        function getRequestObject(){
 
              var testRequestObject = {
                  origin: {
                      city: "Paris",
                      country: "France",
                      id: "PARI",
-                     iata: "CDG"
+                     //iata: "CDG"
+                     iata: "YVR"
                  },
                  destination: {
                      city: "Frankfurt",
                      country: "Germany",
                      id: "FRA",
-                     iata: "FRA"
+                     //iata: "FRA"
+                     iata: "PEK"
                  },
                  departureDateString: "2017 10 22 07 22",
                  isDeparture: true,
@@ -111,8 +113,7 @@
         function addPolyline(){
             var connectionArray;
             var xmlhttp = new XMLHttpRequest();
-
-
+            var bounds = new google.maps.LatLngBounds();
 
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -138,6 +139,8 @@
                             date.setUTCHours(connectionArray[i].arrivalDate.hourOfDay, connectionArray[i].arrivalDate.minute, connectionArray[i].arrivalDate.second);
                             connectionArray[i].arrivalDate = date;
                         }
+
+
 
                         /* Print Connection Informations */
                         conText += connectionArray[i].origin.city + " - " + connectionArray[i].destination.city + "<br>";
@@ -175,6 +178,11 @@
                             strokeWeight: 4,
                         });
 
+                        //sets the coordinates to the bounds to adjust the map center and zoom afterwards
+                        bounds.extend({lat: connectionArray[i].origin.latitude, lng: connectionArray[i].origin.longitude});
+                        bounds.extend({lat: connectionArray[i].destination.latitude, lng: connectionArray[i].destination.longitude});
+
+                        map.fitBounds(bounds);
                         flightPath1.setMap(map);
 
                     }
