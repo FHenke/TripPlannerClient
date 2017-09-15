@@ -76,10 +76,10 @@
                  //GoogleMapsDistance
                  //GoogleMapsDirection
                  //GoogleMapsOnly
-                 //methode: "SkyscannerCacheOnly"
+                 methode: "SkyscannerCacheOnly"
                  //(DatabaseOnly)
                  //methode: "GoogleMapsDistance"
-                 methode: "GoogleMapsDirection"
+                 //methode: "GoogleMapsDirection"
              }
 
 
@@ -124,12 +124,34 @@
                         if(typeof connectionArray[i].duration !== 'undefined') {
                             connectionArray[i].duration = new Date(connectionArray[i].duration.iMillis);
                         }
-
+                        //if departureTime exists parse it from String to Date
+                        if(typeof connectionArray[i].departureDate !== 'undefined') {
+                            var date = new Date();
+                            date.setUTCFullYear(connectionArray[i].departureDate.year, connectionArray[i].departureDate.month, connectionArray[i].departureDate.dayOfMonth);
+                            date.setUTCHours(connectionArray[i].departureDate.hourOfDay, connectionArray[i].departureDate.minute, connectionArray[i].departureDate.second);
+                            connectionArray[i].departureDate = date;
+                        }
+                        //if arrivalDate exists parse it from String to Date
+                        if(typeof connectionArray[i].arrivalDate !== 'undefined') {
+                            var date = new Date();
+                            date.setUTCFullYear(connectionArray[i].arrivalDate.year, connectionArray[i].arrivalDate.month, connectionArray[i].arrivalDate.dayOfMonth);
+                            date.setUTCHours(connectionArray[i].arrivalDate.hourOfDay, connectionArray[i].arrivalDate.minute, connectionArray[i].arrivalDate.second);
+                            connectionArray[i].arrivalDate = date;
+                        }
 
                         /* Print Connection Informations */
                         conText += connectionArray[i].origin.city + " - " + connectionArray[i].destination.city + "<br>";
+                        if(connectionArray[i].departureDate || connectionArray[i].arrivalDate) {
+                            if (connectionArray[i].departureDate) {
+                                conText += "(" + connectionArray[i].departureDate.toUTCString() + ")";
+                            }
+                            if(connectionArray[i].arrivalDate){
+                                conText += " - (" + connectionArray[i].arrivalDate.toUTCString() + ")";
+                            }
+                            conText += "<br>";
+                        }
                         if(connectionArray[i].distance){
-                            conText += "--> " + (connectionArray[i].distance / 1000) +" km<br>";
+                            conText += "--> " + (connectionArray[i].distance / 1000) + " km<br>";
                         }
                         if(connectionArray[i].duration){
                             conText += "--> " + connectionArray[i].duration.getUTCHours() + ":" + connectionArray[i].duration.getUTCMinutes() + " h<br>";
