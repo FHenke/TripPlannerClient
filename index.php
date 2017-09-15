@@ -57,21 +57,29 @@
 
              var testRequestObject = {
                  origin: {
-                     city: "Muenchen",
-                     country: "Germany",
-                     id: "HAN"
+                     city: "Paris",
+                     country: "France",
+                     id: "PARI",
+                     iata: "CDG"
                  },
                  destination: {
-                     city: "London",
+                     city: "Frankfurt",
                      country: "Germany",
-                     id: "BER"
+                     id: "FRA",
+                     iata: "FRA"
                  },
                  departureDateString: "2017 10 22 07 22",
                  isDeparture: true,
                  transportation: "All",
                  avoid: null,
                  language: "de",
-                 methode: "MapsOnly"
+                 //GoogleMapsDistance
+                 //GoogleMapsDirection
+                 //GoogleMapsOnly
+                 //methode: "SkyscannerCacheOnly"
+                 //(DatabaseOnly)
+                 //methode: "GoogleMapsDistance"
+                 methode: "GoogleMapsDirection"
              }
 
 
@@ -111,12 +119,28 @@
                     var conText = "";
                     connectionArray = JSON.parse(this.responseText, dateTimeReviver);
                     for (i in connectionArray){
-                        var d = new Date(213712387);
-                        //d.getDate()
-                        //connectionArray[i].duration
-                        conText += connectionArray[i].origin.city + " - " + connectionArray[i].destination.city + ": " + (connectionArray[i].distance / 1000) +"km, " + connectionArray[i].duration.getMinutes + "min, " + connectionArray.price + "Euro <br>";
 
-                        //document.getElementById("demo10").innerHTML = connectionArray[i].subConnection;
+                        //if duration exists parse it from String to Date
+                        if(typeof connectionArray[i].duration !== 'undefined') {
+                            connectionArray[i].duration = new Date(connectionArray[i].duration.iMillis);
+                        }
+
+
+                        /* Print Connection Informations */
+                        conText += connectionArray[i].origin.city + " - " + connectionArray[i].destination.city + "<br>";
+                        if(connectionArray[i].distance){
+                            conText += "--> " + (connectionArray[i].distance / 1000) +" km<br>";
+                        }
+                        if(connectionArray[i].duration){
+                            conText += "--> " + connectionArray[i].duration.getUTCHours() + ":" + connectionArray[i].duration.getUTCMinutes() + " h<br>";
+                        }
+                        if(connectionArray[i].price){
+                            conText += "--> " + connectionArray[i].price + " Euro <br>";
+                        }
+
+
+
+                        document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
 
                         var flightPath1 = new google.maps.Polyline({
                             path: [
