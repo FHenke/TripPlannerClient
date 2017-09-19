@@ -12,7 +12,18 @@
 
     <div id="map"></div>
     <div id ="demo"></div>
+    <div id ="demo2"></div>
+    <div id ="demo3"></div>
+    <div id ="demo4"></div>
+    <div id ="demo5"></div>
     <div id ="demo10"></div>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
+    <script src="GeneratePolyline.js"></script>
+
+
+
     <script>
         var map;
         var mapDrawingInProgress = false;
@@ -60,28 +71,36 @@
                      city: "Paris",
                      country: "France",
                      id: "PARI",
-                     //iata: "CDG"
-                     iata: "YVR"
+                     iata: "CDG"
+                     //iata: "YVR"
                  },
+                 /*origin: {
+                     city: "Hannover",
+                     country: "Germany",
+                     id: "Hann",
+                     //iata: "CDG"
+                 },*/
                  destination: {
                      city: "Frankfurt",
                      country: "Germany",
                      id: "FRA",
-                     //iata: "FRA"
-                     iata: "PEK"
+                     iata: "FRA"
                  },
-                 departureDateString: "2017 10 22 07 22",
+                 departureDateString: "2017 09 18 12 22",
                  isDeparture: true,
-                 transportation: "All",
+                 //transportation: "CarOnly",
+                 transportation: "BusOnly",
+                 //transportation: "WalkingOnly",
+                 //transportation: "BicyclingOnly",
                  avoid: null,
                  language: "de",
                  //GoogleMapsDistance
                  //GoogleMapsDirection
                  //GoogleMapsOnly
-                 methode: "SkyscannerCacheOnly"
+                 //methode: "SkyscannerCacheOnly"
                  //(DatabaseOnly)
-                 //methode: "GoogleMapsDistance"
-                 //methode: "GoogleMapsDirection"
+                 // methode: "GoogleMapsDistance"
+                 methode: "GoogleMapsDirection"
              }
 
 
@@ -143,7 +162,9 @@
 
 
                         /* Print Connection Informations */
-                        conText += connectionArray[i].origin.city + " - " + connectionArray[i].destination.city + "<br>";
+                        if(connectionArray[i].origin.city && connectionArray[i].destination.city){
+                            conText += connectionArray[i].origin.city + " - " + connectionArray[i].destination.city + "<br>";
+                        }
                         if(connectionArray[i].departureDate || connectionArray[i].arrivalDate) {
                             if (connectionArray[i].departureDate) {
                                 conText += "(" + connectionArray[i].departureDate.toUTCString() + ")";
@@ -166,12 +187,40 @@
 
 
                         document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
+/*
+                        var pathpath = [
+                            {lat: connectionArray[i].origin.latitude, lng: connectionArray[i].origin.longitude},
+                            {lat: connectionArray[i].destination.latitude, lng: connectionArray[i].destination.longitude}
+                        ];
+
+                        var polyline1 = connectionArray[i].polyline;
+                        var latLongArray = google.maps.geometry.encoding.decodePath(polyline1);
+                        for (j in latLongArray){
+                            latLongArray[j] = {
+                                lat: latLongArray[j].lat(),
+                                lng: latLongArray[j].lng()
+                            }
+                        }
+*/
+                        //use polyline as first choise for path calculation if available, otherwise use origin and destination coordinates
+                        var latLngArray;
+                        if(connectionArray[i].polyline){
+                            //Generates An Array with Lat and Lng from the polyline and parses the lat lnt objects in a readable format for Google Maps Path afterwards
+                            this.latLngArray = GeneratePolyline.coordinateArray.makePathReadable(google.maps.geometry.encoding.decodePath(connectionArray[i].polyline));
+                        }else{
+                            this.latLngArray = GeneratePolyline.coordinateArray.fromOriginDestination(connectionArray[i].origin, connectionArray[i].destination);
+                        }
+
+
+                        //document.getElementById("demo2").innerHTML = "<br><br>" + this.latlngArray;
+
 
                         var flightPath1 = new google.maps.Polyline({
-                            path: [
+                            /*path: [
                                 {lat: connectionArray[i].origin.latitude, lng: connectionArray[i].origin.longitude},
                                 {lat: connectionArray[i].destination.latitude, lng: connectionArray[i].destination.longitude}
-                            ],
+                            ],*/
+                            path: this.latLngArray,
                             geodesic: true,
                             strokeColor: colorMethode.nextColor(),
                             strokeOpacity: 0.8,
@@ -200,24 +249,6 @@
             //xmlhttp.send();
 
 
-         // sleep(15000);
-/*
-          var flightPath = new google.maps.Polyline({
-              path: [
-                  {lat: -18.142, lng: 178.431},
-                  {lat: -27.467, lng: 153.027}
-              ],
-              geodesic: true,
-              strokeColor: '#0000FF',
-              strokeOpacity: 1.0,
-              strokeWeight: 2,
-              map: map
-          });
-*/
-         /* var marker = new google.maps.Marker({
-              position: {lat: -20.363, lng: 151.044},
-              map: map
-          });*/
       }
     </script>
     <script async defer
