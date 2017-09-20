@@ -21,22 +21,12 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
     <script src="GeneratePolyline.js"></script>
-
+    <script src="Colors.js"></script>
 
 
     <script>
         var map;
         var mapDrawingInProgress = false;
-
-
-        function sleep(milliseconds) {
-            var start = new Date().getTime();
-            while(true) {
-                if ((new Date().getTime() - start) > milliseconds){
-                    break;
-                }
-            }
-        }
 
         dateTimeReviver = function (key, value) {
             var a;
@@ -48,20 +38,6 @@
             }
             return value;
         }
-
-      /**/  var colorMethode = {
-            totalNumber: 0,
-            colorArray: ["#C0392B", "#E74C3C", "#9B59B6", "#8E44AD", "#2980B9", "#3498DB", "#1ABC9C", "#16A085", "#27AE60", "#2ECC71", "#F1C40F", "#F39C12", "#E67E22", "#D35400"],
-            nextColor: function(){
-                this.totalNumber++;
-                return this.colorArray[(this.totalNumber - 1) % this.colorArray.length];
-            },
-
-            currentColor: function(){
-                return this.colorArray[this.totalNumber % this.colorArray.length];
-            }
-        }
-
 
 
         function getRequestObject(){
@@ -222,7 +198,7 @@
                             ],*/
                             path: this.latLngArray,
                             geodesic: true,
-                            strokeColor: colorMethode.nextColor(),
+                            strokeColor: Colors.nextColor(),
                             strokeOpacity: 0.8,
                             strokeWeight: 4,
                         });
