@@ -21,54 +21,11 @@
     <script src="Colors.js"></script>
     <script src="ConnectionTextOutput.js"></script>
     <script src="JsonConverter.js"></script>
+    <script src="ExampleRequestObjects.js"></script>
 
     <script>
         var map;
         var mapDrawingInProgress = false;
-
-        function getRequestObject(){
-
-             var testRequestObject = {
-                 origin: {
-                     city: "Paris",
-                     country: "France",
-                     id: "PARI",
-                     iata: "CDG"
-                     //iata: "YVR"
-                 },
-                 /*origin: {
-                     city: "Hannover",
-                     country: "Germany",
-                     id: "Hann",
-                     //iata: "CDG"
-                 },*/
-                 destination: {
-                     city: "Frankfurt",
-                     country: "Germany",
-                     id: "FRA",
-                     iata: "FRA"
-                 },
-                 departureDateString: "2017 09 18 12 22",
-                 isDeparture: true,
-                 //transportation: "CarOnly",
-                 transportation: "BusOnly",
-                 //transportation: "WalkingOnly",
-                 //transportation: "BicyclingOnly",
-                 avoid: null,
-                 language: "de",
-                 //GoogleMapsDistance
-                 //GoogleMapsDirection
-                 //GoogleMapsOnly
-                 //methode: "SkyscannerCacheOnly"
-                 //(DatabaseOnly)
-                  methode: "GoogleMapsDistance"
-                 //methode: "GoogleMapsDirection"
-             }
-
-
-             return testRequestObject;
-
-        }
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
@@ -120,6 +77,7 @@
                             strokeWeight: 4,
                         });
                         //sets the coordinates to the bounds to adjust the map center and zoom afterwards
+                        //bounds.extend(latLngArray);
                         bounds.extend({lat: connectionArray[i].origin.latitude, lng: connectionArray[i].origin.longitude});
                         bounds.extend({lat: connectionArray[i].destination.latitude, lng: connectionArray[i].destination.longitude});
 
@@ -135,7 +93,7 @@
 
             xmlhttp.open("POST", "ConnectionAPI.php", true);
             xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xmlhttp.send("request=" + JSON.stringify(getRequestObject()));
+            xmlhttp.send("request=" + JSON.stringify(ExampleRequestObjects.getRequestObject()));
 
       }
     </script>
