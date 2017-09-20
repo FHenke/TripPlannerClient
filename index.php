@@ -22,6 +22,7 @@
     <script src="ConnectionTextOutput.js"></script>
     <script src="JsonConverter.js"></script>
     <script src="ExampleRequestObjects.js"></script>
+    <script src="Bounds.js"></script>
 
     <script>
         var map;
@@ -77,24 +78,19 @@
                             strokeWeight: 4,
                         });
                         //sets the coordinates to the bounds to adjust the map center and zoom afterwards
-                        //bounds.extend(latLngArray);
-                        bounds.extend({lat: connectionArray[i].origin.latitude, lng: connectionArray[i].origin.longitude});
-                        bounds.extend({lat: connectionArray[i].destination.latitude, lng: connectionArray[i].destination.longitude});
+                        bounds = Bounds.setBounds(this.latLngArray, bounds);
 
                         map.fitBounds(bounds);
                         flightPath1.setMap(map);
-
                     }
                     document.getElementById("demo").innerHTML = conText;
                     document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
-
                 }
             };
 
             xmlhttp.open("POST", "ConnectionAPI.php", true);
             xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xmlhttp.send("request=" + JSON.stringify(ExampleRequestObjects.getRequestObject()));
-
       }
     </script>
     <script async defer

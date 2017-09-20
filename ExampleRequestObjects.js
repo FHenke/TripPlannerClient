@@ -28,10 +28,10 @@ var ExampleRequestObjects = {
         //transportation: "BicyclingOnly",
         avoid: null,
         language: "de",
-        methode: "SkyscannerCacheOnly"
+        //methode: "SkyscannerCacheOnly"
         //(DatabaseOnly)
         //methode: "GoogleMapsDistance"
-        //methode: "GoogleMapsDirection"
+        methode: "GoogleMapsDirection"
     },
 
     getRequestObject: function(){
