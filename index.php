@@ -14,17 +14,13 @@
     <div id ="demo"></div>
     <div id ="demo1"></div>
     <div id ="demo2"></div>
-    <div id ="demo3"></div>
-    <div id ="demo4"></div>
-    <div id ="demo5"></div>
     <div id ="demo10"></div>
-
 
     <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
     <script src="GeneratePolyline.js"></script>
     <script src="Colors.js"></script>
     <script src="ConnectionTextOutput.js"></script>
-
+    <script src="JsonConverter.js"></script>
 
     <script>
         var map;
@@ -65,8 +61,8 @@
                  //GoogleMapsOnly
                  //methode: "SkyscannerCacheOnly"
                  //(DatabaseOnly)
-                 // methode: "GoogleMapsDistance"
-                 methode: "GoogleMapsDirection"
+                  methode: "GoogleMapsDistance"
+                 //methode: "GoogleMapsDirection"
              }
 
 
@@ -101,30 +97,12 @@
                     connectionArray = JSON.parse(this.responseText);
                     for (i in connectionArray){
 
-                        //if duration exists parse it from String to Date
-                        if(typeof connectionArray[i].duration !== 'undefined') {
-                            connectionArray[i].duration = new Date(connectionArray[i].duration.iMillis);
-                        }
-                        //if departureTime exists parse it from String to Date
-                        if(typeof connectionArray[i].departureDate !== 'undefined') {
-                            var date = new Date();
-                            date.setUTCFullYear(connectionArray[i].departureDate.year, connectionArray[i].departureDate.month, connectionArray[i].departureDate.dayOfMonth);
-                            date.setUTCHours(connectionArray[i].departureDate.hourOfDay, connectionArray[i].departureDate.minute, connectionArray[i].departureDate.second);
-                            connectionArray[i].departureDate = date;
-                        }
-                        //if arrivalDate exists parse it from String to Date
-                        if(typeof connectionArray[i].arrivalDate !== 'undefined') {
-                            var date = new Date();
-                            date.setUTCFullYear(connectionArray[i].arrivalDate.year, connectionArray[i].arrivalDate.month, connectionArray[i].arrivalDate.dayOfMonth);
-                            date.setUTCHours(connectionArray[i].arrivalDate.hourOfDay, connectionArray[i].arrivalDate.minute, connectionArray[i].arrivalDate.second);
-                            connectionArray[i].arrivalDate = date;
-                        }
+                        //brings the Dates from the JSON in a date js object
+                        connectionArray[i] = JsonConverter.convertConnectionDates(connectionArray[i]);
 
                         //Text output of Connection
                         conText += ConnectionTextOutput.getText(connectionArray[i]);
 
-/*
-*/
                         //use polyline as first choise for path calculation if available, otherwise use origin and destination coordinates
                         var latLngArray;
                         if(connectionArray[i].polyline){
@@ -134,19 +112,13 @@
                             this.latLngArray = GeneratePolyline.coordinateArray.fromOriginDestination(connectionArray[i].origin, connectionArray[i].destination);
                         }
 
-
                         var flightPath1 = new google.maps.Polyline({
-                            /*path: [
-                                {lat: connectionArray[i].origin.latitude, lng: connectionArray[i].origin.longitude},
-                                {lat: connectionArray[i].destination.latitude, lng: connectionArray[i].destination.longitude}
-                            ],*/
                             path: this.latLngArray,
                             geodesic: true,
                             strokeColor: Colors.nextColor(),
                             strokeOpacity: 0.8,
                             strokeWeight: 4,
                         });
-
                         //sets the coordinates to the bounds to adjust the map center and zoom afterwards
                         bounds.extend({lat: connectionArray[i].origin.latitude, lng: connectionArray[i].origin.longitude});
                         bounds.extend({lat: connectionArray[i].destination.latitude, lng: connectionArray[i].destination.longitude});
@@ -165,13 +137,10 @@
             xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xmlhttp.send("request=" + JSON.stringify(getRequestObject()));
 
-
       }
     </script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxV8w1QJyiHDrNwwqDOpZHQT9FMChINH0&callback=initMap">
-        addPolyline();
-
     </script>
   </body>
 </html>
