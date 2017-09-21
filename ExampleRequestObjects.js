@@ -22,8 +22,9 @@ var ExampleRequestObjects = {
         },
         departureDateString: "2017 09 18 12 22",
         isDeparture: true,
-        //transportation: "CarOnly",
-        transportation: "BusOnly",
+        showAlternatives: true,
+        transportation: "CarOnly",
+        //transportation: "BusOnly",
         //transportation: "WalkingOnly",
         //transportation: "BicyclingOnly",
         avoid: null,
@@ -31,7 +32,7 @@ var ExampleRequestObjects = {
         //methode: "SkyscannerCacheOnly"
         //(DatabaseOnly)
         //methode: "GoogleMapsDistance"
-        methode: "GoogleMapsDirection"
+         methode: "GoogleMapsDirection"
     },
 
     getRequestObject: function(){

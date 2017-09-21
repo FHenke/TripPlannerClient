@@ -74,7 +74,7 @@
                             path: this.latLngArray,
                             geodesic: true,
                             strokeColor: Colors.nextColor(),
-                            strokeOpacity: 0.8,
+                            strokeOpacity: 1.0,
                             strokeWeight: 4,
                         });
                         //sets the coordinates to the bounds to adjust the map center and zoom afterwards
