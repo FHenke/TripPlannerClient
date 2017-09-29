@@ -4,6 +4,8 @@ var ConnectionTextOutput = {
         var connectionString = "";
         if(connection.origin.city && connection.destination.city){
             connectionString += connection.origin.city + " - " + connection.destination.city + "<br>";
+        }else{
+            connectionString += connection.origin.name + " - " + connection.destination.name + "<br>";
         }
         if(connection.departureDate || connection.arrivalDate) {
             if (connection.departureDate) {

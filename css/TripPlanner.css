@@ -1,0 +1,104 @@
+#map {
+    height: 720px;
+    width: 100%;
+
+}
+
+
+
+div.topMenu.main{
+    width: 100%;
+    border-radius: 25px 25px 0px 0px;
+    /*#2
+    background-color: #3e8f3e;*/
+    /*#3
+    background-color: #2e6da4;*/
+    /*#4
+    background-color: #2b669a;*/
+    /*Laura*/
+    background-color: #1e4d8A;
+}
+
+div.topMenu.part{
+    width: 33.33%;
+    float: left;
+    overflow: auto;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+
+div.topMenuContent{
+    border-radius: 25px;
+    padding: 15px;
+    margin: 15px;
+    width: 250px;
+    display: block;
+    margin: auto;
+
+    /*#2
+    background-color: #b2dba1;*/
+    /*#1
+    background-color: lightgray;*/
+    /*#3
+    background-color: #a6e1ec;*/
+    /*#3*/
+    background-color: lightsteelblue;
+}
+/*
+#origin, #destination {
+    height: 100px;
+}
+
+#settings {
+    height: 150px;
+}*/
+
+.main:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+head3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.inputTextField {
+    height: 25px;
+    margin: 8px;
+    width: 230px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+menuText{
+    font-size: 20px;
+    margin: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.selectField {
+    height: 25px;
+    margin: 8px;
+    width: 230px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.menuCheckbox{
+    margin: 8px;
+    transform: scale(1.8);
+}
+
+.inputButton {
+    height: 40px;
+    margin: 8px;
+    width: 230px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
