@@ -20,7 +20,11 @@ var ConnectionTextOutput = {
             connectionString += "--> " + (connection.distance / 1000) + " km<br>";
         }
         if(connection.duration){
-            connectionString += "--> " + connection.duration.getUTCHours() + ":" + connection.duration.getUTCMinutes() + " h<br>";
+            if(connection.duration.getUTCDate() > 0){
+                connectionString += "--> " + connection.duration.getUTCDate() + " days " + connection.duration.getUTCHours() + ":" + connection.duration.getUTCMinutes() + " h<br>";
+            }else {
+                connectionString += "--> " + connection.duration.getUTCHours() + ":" + connection.duration.getUTCMinutes() + " h<br>";
+            }
         }
         if(connection.price){
             connectionString += "--> " + connection.price + " Euro <br>";
