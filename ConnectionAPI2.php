@@ -12,11 +12,17 @@ error_reporting(E_ALL);
 
 //var_dump($_POST);
 
+$done = false;
+
+$step = 0;
+
 /* Erhalte Port für den WWW Service. */
 $service_port = 4308;
 
 /* Erhalte die IP Adresse des Ziel Hosts. */
 $address = gethostbyname('localhost');
+
+while($done == false) {
 
     /* Erzeuge ein TCP/IP Socket. */
     $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
@@ -35,7 +41,13 @@ $address = gethostbyname('localhost');
     }
 
 //echo ;
-    $in = $_POST['request'] . "\r\n";
+    $in="";
+    if ($step == 0) {
+        $in = $_POST['request'] . "\r\n";
+        $step = $step + 1;
+    }else{
+        $in = $key . "\r\n";
+    }
     $out = '';
 
 //echo "Sende HTTP HEAD Request...";
@@ -51,12 +63,16 @@ $address = gethostbyname('localhost');
     }
     socket_close($socket);
 
-    $message = $buf;
+    $key = substr($buf, 0, 10);
+    $message = substr($buf, 10);
 
+    if ($key == "000000000") {
+        $done = true;
+    }
 
     echo $message . "\n";
 //echo "OK.\n\n";
 
-
+}
 
 ?>

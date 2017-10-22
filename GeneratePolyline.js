@@ -1,10 +1,4 @@
 var GeneratePolyline = {
-
-    generatePolyline: function(){
-        return "test";
-
-    },
-
     coordinateArray: {
        makePathReadable: function (latLngArray) {
             //Generates An Array with Lat and Lng from the polyline

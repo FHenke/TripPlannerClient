@@ -1,7 +1,7 @@
 var ConnectionTextOutput = {
     getText: function (connection) {
         /* Print Connection Informations */
-        var connectionString = "";
+        var connectionString = "<div class='connectionTextBox'>";
 
         //Origin an destination
         if(connection.origin.city && connection.destination.city){
@@ -49,6 +49,8 @@ var ConnectionTextOutput = {
         if(connection.price){
             connectionString += "--> " + connection.price + " Euro <br>";
         }
+
+        connectionString += "</div>"
         
         return connectionString;
     },

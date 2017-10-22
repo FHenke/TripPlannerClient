@@ -3,17 +3,18 @@
         <div class="topMenu part">
             <div class="topMenu origin topMenuContent" id="origin">
                 <head3>Origin</head3><br>
-                <input class="inputTextField" type="text" name="origin" value="From" id="origin"><br>
-                <input class="inputTextField" type="text" id="date" name="date">
+                <input class="inputTextField" type="text" name="origin" placeholder="City, Country" id="enterOrigin"><br>
+                <input class="inputTextField" type="text" id="date" name="date" placeholder="Date">
             </div>
             <br>
             <div class="topMenu destination topMenuContent" id="destination">
                 <head3>Destination</head3><br>
-                <input class="inputTextField" type="text" name="destination" value="To"><br>
-                <input class="inputTextField" type="text" id="returnDate" name="returnDate">
+                <input class="inputTextField" type="text" name="destination" placeholder="City, Country" id="enterDestination"><br>
+                <input class="inputTextField" type="text" id="returnDate" name="returnDate" placeholder="Date">
             </div>
         </div>
-        <div class="topMenu part">
+
+        <div class="topMenu part middleBox">
             <div class="topMenu settings topMenuContent" id="settings">
                 <head3>Transportation</head3><br>
                 <input id="car" type="checkbox" value="car" class="menuCheckbox"><menuText>Car</menuText><br>
@@ -22,7 +23,11 @@
                 <input id="walk" type="checkbox" value="walk" class="menuCheckbox"><menuText>Walk</menuText><br>
                 <input id="airplane" type="checkbox" value="airplane" class="menuCheckbox"><menuText>Airplane</menuText>
             </div>
+            <div class="buttonBox">
+                <input class="inputButton" type="submit" value="Go.">
+            </div>
         </div>
+
         <div class="topMenu part">
             <div class="topMenu settigs topMenuContent" id="settings">
                 <head3>Options</head3><br>
@@ -51,7 +56,6 @@
                     <option value="ex7">Rio - New York</option>
                     <option value="ex8">Banff - Göttingen</option>
                 </select><br>
-                <input class="inputButton" type="submit" value="Search">
             </div>
         </div>
     </form>

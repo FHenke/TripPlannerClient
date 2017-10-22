@@ -12,6 +12,7 @@
   </head>
   <body>
 
+  <div class="all">
       <?php
         include "body/MenuBar.php";
       ?>
@@ -19,12 +20,18 @@
 
 
 
-    <div id="map"></div>
+    <div class="map" id="map"></div>
 
-    <div id ="demo"></div>
+      <div id="ConectionTextOutputBackround" class="ConectionTextOutputBackround">
+          <div class="InnerConectionTextOutput menuText">
+                <div id ="demo"></div>
+          </div>
+      </div>
+
     <div id ="demo1"></div>
     <div id ="demo2"></div>
     <div id ="demo10"></div>
+  </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
     <script src="GeneratePolyline.js"></script>
@@ -45,17 +52,16 @@
                 zoom: zoom,
                 center: center
             });
+
+            new google.maps.places.Autocomplete(document.getElementById('enterOrigin'));
+            new google.maps.places.Autocomplete(document.getElementById('enterDestination'));
+
+
         }
 
-        /*
-        function initMap(zoom) {
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: zoom,
-                center: {lat: 0, lng: 0}
-            });
-        }*/
-
         function addPolyline(){
+
+
 
             var xmlhttp = new XMLHttpRequest();
             var bounds = new google.maps.LatLngBounds();
@@ -63,23 +69,11 @@
 
             removeAllLines();
 
-            /* always undefined*/
-            var x = document.forms['form1'].elements['date'].value;
-            document.getElementById("demo2").innerHTML = "Solution: " + x;
-
-
-            //requestObject
-            /*if(document.forms['form1'].elements['example'].value == 'noEx'){
-                document.forms['form1'].elements['example'].value
-                var lol = document.forms['form1'].elements['example'].value
-                document.getElementById("demo1").innerHTML = lol;
-
-            }*/
-            //ExampleRequestObjects.getRequestObject()
 
 
 
-            xmlhttp.onreadystatechange = function() {
+
+        xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     var conText = "";
                     connectionArray = JSON.parse(this.responseText);
@@ -113,10 +107,20 @@
                         map.fitBounds(bounds);
                         connectionArray[i].pathOnMap.setMap(map);
                     }
-                    document.getElementById("demo").innerHTML = conText;
-                    document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
+                    document.getElementById("demo").innerHTML = conText;/**/
+                    //document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
+
                 }
+                    //document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
             };
+
+            /*xmlhttp.async = true;
+
+            xmlhttp.onprogress = function(e) {
+                document.getElementById("demo10").innerHTML = "<br><br>" + e.currentTarget.responseText;
+            }*/
+
+            //xmlhttp.addEventListener("progress", progressHandler, false);
 
             //document.getElementById("demo1").innerHTML = requestobject.transportation;
             xmlhttp.open("POST", "ConnectionAPI.php", true);
@@ -125,6 +129,13 @@
             xmlhttp.send("request=" + JSON.stringify(requestObject));
       }
 
+        /*function _(el){
+            return document.getElementById(el);
+        }
+
+        function progressHandler(event){
+            _("status").innerHTML = event.target.responseText;
+        }*/
 
       function removeAllLines(){
           for (i in connectionArray){
@@ -132,9 +143,10 @@
           }
         }
     </script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxV8w1QJyiHDrNwwqDOpZHQT9FMChINH0&callback=initMap">
-    </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxV8w1QJyiHDrNwwqDOpZHQT9FMChINH0&libraries=places&callback=initMap" async defer></script>
+
+
+
 
 
   <?php
