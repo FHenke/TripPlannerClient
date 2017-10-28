@@ -38,8 +38,8 @@ var ConnectionTextOutput = {
 
         //duration
         if(connection.duration){
-            if(connection.duration.getUTCDate() > 0){
-                connectionString += "--> " + connection.duration.getUTCDate() + " days " + connection.duration.getUTCHours() + ":" + connection.duration.getUTCMinutes() + " h<br>";
+            if(connection.duration.getUTCDate() > 1){
+                connectionString += "--> " + (connection.duration.getUTCDate() - 1) + " days " + connection.duration.getUTCHours() + ":" + connection.duration.getUTCMinutes() + " h<br>";
             }else {
                 connectionString += "--> " + connection.duration.getUTCHours() + ":" + connection.duration.getUTCMinutes() + " h<br>";
             }

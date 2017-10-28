@@ -40,12 +40,14 @@
     <script src="JsonConverter.js"></script>
     <script src="ExampleRequestObjects.js"></script>
     <script src="Bounds.js"></script>
+    <script src="TraficSymbol.js"></script>
 
     <script>
         var map;
         var zoom = 3;
         var center = {lat: 0, lng: 0};
         var connectionArray;
+        var infowindow;
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
@@ -56,22 +58,18 @@
             new google.maps.places.Autocomplete(document.getElementById('enterOrigin'));
             new google.maps.places.Autocomplete(document.getElementById('enterDestination'));
 
-
+            infowindow = new google.maps.InfoWindow();
         }
 
+
+
         function addPolyline(){
-
-
 
             var xmlhttp = new XMLHttpRequest();
             var bounds = new google.maps.LatLngBounds();
             var requestObject = ExampleRequestObjects.getRequestObject(document.forms['form1'].elements['example'].value);
 
             removeAllLines();
-
-
-
-
 
         xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -94,21 +92,40 @@
                             this.latLngArray = GeneratePolyline.coordinateArray.fromOriginDestination(connectionArray[i].origin, connectionArray[i].destination);
                         }
 
+
                         connectionArray[i].pathOnMap = new google.maps.Polyline({
                             path: this.latLngArray,
+                            //icons: [carOnLine],
                             geodesic: true,
                             strokeColor: Colors.nextColor(),
                             strokeOpacity: 1.0,
-                            strokeWeight: 4,
+                            strokeWeight: 4
                         });
                         //sets the coordinates to the bounds to adjust the map center and zoom afterwards
                         bounds = Bounds.setBounds(this.latLngArray, bounds);
+
+                        connectionArray[i].pathOnMap.addListener('mouseover', function(event){
+                            for(j in connectionArray){
+                                if(google.maps.geometry.poly.isLocationOnEdge(event.latLng, connectionArray[j].pathOnMap, 0.0005)){
+                                    infowindow.setContent(connectionArray[j].summary);
+                                    infowindow.setPosition(event.latLng);
+                                    infowindow.open(map);
+                                }
+                            }
+
+                        });/**/
+
+                        /*google.maps.event.addListener(connectionArray[i].pathOnMap, 'mouseover', function(event){
+                            infowindow.setContent("test test");
+                            infowindow.setPosition(event.latLng);
+                            infowindow.open(map);
+                        });*/
 
                         map.fitBounds(bounds);
                         connectionArray[i].pathOnMap.setMap(map);
                     }
                     document.getElementById("demo").innerHTML = conText;/**/
-                    //document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
+                    document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
 
                 }
                     //document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
@@ -151,7 +168,6 @@
 
   <?php
     include "body/DateTimePicker.php";
-
   ?>
 
   </body>
