@@ -4,11 +4,14 @@ var ExampleRequestObjects = {
 
         var request = {
             origin: {
-                name: document.forms['form1'].elements['origin'].value
+                name: document.forms['form1'].elements['origin'].value,
+                latitude: originAutoComplete.getPlace().geometry.location.lat(),
+                longitude: originAutoComplete.getPlace().geometry.location.lng()
             },
             destination: {
-                name: document.forms['form1'].elements['destination'].value
-                //country: "Germany"
+                name: document.forms['form1'].elements['destination'].value,
+                latitude: destinationAutoComplete.getPlace().geometry.location.lat(),
+                longitude: destinationAutoComplete.getPlace().geometry.location.lng()
             },
             departureDateString: document.forms['form1'].elements['date'].value,
             returnDateString: document.forms['form1'].elements['returnDate'].value,

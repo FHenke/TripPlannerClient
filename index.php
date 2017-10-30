@@ -40,7 +40,7 @@
     <script src="JsonConverter.js"></script>
     <script src="ExampleRequestObjects.js"></script>
     <script src="Bounds.js"></script>
-    <script src="TraficSymbol.js"></script>
+    <script src="TimeZone.js"></script>
 
     <script>
         var map;
@@ -48,6 +48,8 @@
         var center = {lat: 0, lng: 0};
         var connectionArray;
         var infowindow;
+        var originAutoComplete;
+        var destinationAutoComplete;
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
@@ -55,8 +57,8 @@
                 center: center
             });
 
-            new google.maps.places.Autocomplete(document.getElementById('enterOrigin'));
-            new google.maps.places.Autocomplete(document.getElementById('enterDestination'));
+            originAutoComplete = new google.maps.places.Autocomplete(document.getElementById('enterOrigin'));
+            destinationAutoComplete = new google.maps.places.Autocomplete(document.getElementById('enterDestination'));
 
             infowindow = new google.maps.InfoWindow();
         }
@@ -70,6 +72,8 @@
             var requestObject = ExampleRequestObjects.getRequestObject(document.forms['form1'].elements['example'].value);
 
             removeAllLines();
+
+            document.getElementById("demo1").innerHTML = requestObject.origin.latitude;
 
         xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
