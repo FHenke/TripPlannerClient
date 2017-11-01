@@ -13,8 +13,8 @@ var ExampleRequestObjects = {
                 latitude: destinationAutoComplete.getPlace().geometry.location.lat(),
                 longitude: destinationAutoComplete.getPlace().geometry.location.lng()
             },
-            departureDateString: document.forms['form1'].elements['date'].value,
-            returnDateString: document.forms['form1'].elements['returnDate'].value,
+            departureDateEpochTime: TimeZone.getUTCFromText(document.forms['form1'].elements['date'].value, {lat: originAutoComplete.getPlace().geometry.location.lat(), lng: originAutoComplete.getPlace().geometry.location.lng()}),
+            //returnDateEpochTime: TimeZone.getUTCFromText(document.forms['form1'].elements['returnDate'].value, {lat: departureAutoComplete.getPlace().geometry.location.lat(), lng: departureAutoComplete.getPlace().geometry.location.lng()}),
             isDeparture: checkIfDepartureTime(document.forms['form1'].elements['departure_arrival'].value),
             showAlternatives: true,
             transportation: [document.forms['form1'].elements['car'].checked,
@@ -58,7 +58,7 @@ var ExampleRequestObjects = {
             id: "FRA",
             iata: "FRA"
         },
-        departureDateString: "2017 09 18 12 22",
+        departureDateEpochTime: "2017 09 18 12 22",
         isDeparture: true,
         showAlternatives: true,
         transportation: "CarOnly",
@@ -111,7 +111,7 @@ function RequestObject(){
     this.origin.country = "France";
     this.destination.city = "Hannover";
     this.destination.country = "Germany";
-    this.departureDateString = "2017 09 18 12 22";
+    this.departureDateEpochTime = "2017 09 18 12 22";
     this.isDeparture = true;
     this.showAlternatives = true;
     this.transportation = "CarOnly";

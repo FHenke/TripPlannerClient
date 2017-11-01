@@ -73,7 +73,7 @@
 
             removeAllLines();
 
-            document.getElementById("demo1").innerHTML = requestObject.origin.latitude;
+            //document.getElementById("demo1").innerHTML = "." + document.forms['form1'].elements['returnDate'].value + ".";
 
         xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
