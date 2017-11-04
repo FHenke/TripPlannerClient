@@ -12,7 +12,7 @@ var TimeZone = {
 
     //localtime has to be a JS date object and location has to be a LatLng object
     getLocal: function (utcTime, location) {
-        var timeZoneInfo = this.getTimeZoneInfo(utcTime, location);
+        var timeZoneInfo = this.getTimeZoneInfo(utcTime.getTime() / 1000, location);
         //rawOffset = time difference to utc, dstOffset = day light saving time difference
         //calculates the current utc time by add the time difference to utc and to day light saving time
         var localTime = new Date(((utcTime.getTime() / 1000) + timeZoneInfo.dstOffset + timeZoneInfo.rawOffset) * 1000);

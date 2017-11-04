@@ -13,9 +13,7 @@ var ConnectionTextOutput = {
         //departure and arrival date
         if(connection.departureDate || connection.arrivalDate) {
             if (connection.departureDate) {
-                connectionString += "(" + connection.departureDate.toUTCString() + ")";
-                //connectionString += "(" + TimeZone.getLocal((connection.departureDate.getTime() / 1000), {lat: connection.origin.latitude, lng: connection.origin.longitude}).toUTCString() + ")";
-                //connectionString += "(" + connection.departureDate.getTime() + ")";
+                connectionString += "(" + TimeZone.getLocal(connection.departureDate, {lat: connection.origin.latitude, lng: connection.origin.longitude}).toUTCString() + ")";
             }
             if(connection.arrivalDate){
                 connectionString += " - (" + connection.arrivalDate.toUTCString() + ")";

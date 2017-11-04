@@ -110,20 +110,22 @@
 
                         connectionArray[i].pathOnMap.addListener('mouseover', function(event){
                             for(j in connectionArray){
-                                if(google.maps.geometry.poly.isLocationOnEdge(event.latLng, connectionArray[j].pathOnMap, 0.0005)){
-                                    infowindow.setContent(connectionArray[j].summary);
+                                if(google.maps.geometry.poly.isLocationOnEdge(event.latLng, connectionArray[j].pathOnMap, 0.005)) {
+                                    if (connectionArray[j].type == 4 || connectionArray[j].type == 8 || connectionArray[j].type == 9) {
+                                        infowindow.setContent(connectionArray[j].summary);
+                                    }
+                                    if (connectionArray[j].type == 6 || connectionArray[j].type == 8 || connectionArray[j].type == 9) {
+                                        infowindow.setContent("Public Transport");
+                                    }
+                                    /*if (connectionArray[j].type == 4 || connectionArray[j].type == 8 || connectionArray[j].type == 9) {
+                                        infowindow.setContent(connectionArray[j].summary);
+                                    }*/
                                     infowindow.setPosition(event.latLng);
                                     infowindow.open(map);
                                 }
                             }
 
-                        });/**/
-
-                        /*google.maps.event.addListener(connectionArray[i].pathOnMap, 'mouseover', function(event){
-                            infowindow.setContent("test test");
-                            infowindow.setPosition(event.latLng);
-                            infowindow.open(map);
-                        });*/
+                        });
 
                         map.fitBounds(bounds);
                         connectionArray[i].pathOnMap.setMap(map);
@@ -135,18 +137,9 @@
                     //document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
             };
 
-            /*xmlhttp.async = true;
 
-            xmlhttp.onprogress = function(e) {
-                document.getElementById("demo10").innerHTML = "<br><br>" + e.currentTarget.responseText;
-            }*/
-
-            //xmlhttp.addEventListener("progress", progressHandler, false);
-
-            //document.getElementById("demo1").innerHTML = requestobject.transportation;
             xmlhttp.open("POST", "ConnectionAPI.php", true);
             xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            //xmlhttp.send("request=" + JSON.stringify(ExampleRequestObjects.getRequestObject()));
             xmlhttp.send("request=" + JSON.stringify(requestObject));
       }
 
