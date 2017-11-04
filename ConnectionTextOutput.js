@@ -16,7 +16,7 @@ var ConnectionTextOutput = {
                 connectionString += "(" + TimeZone.getLocal(connection.departureDate, {lat: connection.origin.latitude, lng: connection.origin.longitude}).toUTCString() + ")";
             }
             if(connection.arrivalDate){
-                connectionString += " - (" + connection.arrivalDate.toUTCString() + ")";
+                connectionString += " - (" + TimeZone.getLocal(connection.arrivalDate, {lat: connection.origin.latitude, lng: connection.origin.longitude}).toUTCString() + ")";
             }
             connectionString += "<br>";
         }
