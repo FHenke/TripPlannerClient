@@ -1,6 +1,6 @@
 var ConnectionTextOutput = {
     getText: function (connection) {
-        /* Print Connection Informations */
+        /* Print connection Informations */
         var connectionString = "<div class='connectionTextBox'>";
 
         //Origin an destination
@@ -57,6 +57,9 @@ var ConnectionTextOutput = {
 
     getTransport: function(transportNumber){
         switch(transportNumber){
+            case 1:
+                return "Plane";
+                break;
             case 6:
                 return "Public Transport";
                 break;

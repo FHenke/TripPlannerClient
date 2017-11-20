@@ -56,6 +56,12 @@
                     <option value="ex7">Rio - New York</option>
                     <option value="ex8">Banff - Göttingen</option>
                 </select><br>
+                <select class="selectField" name="level" id="level">
+                    <option value=1>Level 1</option>
+                    <option value=2>Level 2</option>
+                    <option value=3>Level 3</option>
+                    <option value=4>Level 4</option>
+                </select><br>
             </div>
         </div>
     </form>

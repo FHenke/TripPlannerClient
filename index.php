@@ -30,6 +30,7 @@
 
     <div id ="demo1"></div>
     <div id ="demo2"></div>
+    <div id ="demo3"></div>
     <div id ="demo10"></div>
   </div>
 
@@ -42,6 +43,8 @@
     <script src="Bounds.js"></script>
     <script src="TimeZone.js"></script>
     <script src="CheckInput.js"></script>
+    <script src="connection/HeadConnection.js"></script>
+    <script src="connection/DrawPolyline.js"></script>
 
     <script>
         var map;
@@ -51,6 +54,7 @@
         var infowindow;
         var originAutoComplete;
         var destinationAutoComplete;
+        var bounds;
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
@@ -61,6 +65,7 @@
             originAutoComplete = new google.maps.places.Autocomplete(document.getElementById('enterOrigin'));
             destinationAutoComplete = new google.maps.places.Autocomplete(document.getElementById('enterDestination'));
 
+            bounds = new google.maps.LatLngBounds();
             infowindow = new google.maps.InfoWindow();
         }
 
@@ -86,48 +91,10 @@
                             //Text output of Connection
                             conText += ConnectionTextOutput.getText(connectionArray[i]);
 
-                            //use polyline as first choise for path calculation if available, otherwise use origin and destination coordinates
-                            var latLngArray;
-                            if (connectionArray[i].polyline) {
-                                //Generates An Array with Lat and Lng from the polyline and parses the lat lnt objects in a readable format for Google Maps Path afterwards
-                                this.latLngArray = GeneratePolyline.coordinateArray.makePathReadable(google.maps.geometry.encoding.decodePath(connectionArray[i].polyline));
-                            } else {
-                                this.latLngArray = GeneratePolyline.coordinateArray.fromOriginDestination(connectionArray[i].origin, connectionArray[i].destination);
-                            }
+                            //Draw polylines on the map
+                            connectionArray[i] = drawPolyline(connectionArray[i], 1);
 
 
-                            connectionArray[i].pathOnMap = new google.maps.Polyline({
-                                path: this.latLngArray,
-                                //icons: [carOnLine],
-                                geodesic: true,
-                                strokeColor: Colors.nextColor(),
-                                strokeOpacity: 1.0,
-                                strokeWeight: 4
-                            });
-                            //sets the coordinates to the bounds to adjust the map center and zoom afterwards
-                            bounds = Bounds.setBounds(this.latLngArray, bounds);
-
-                            connectionArray[i].pathOnMap.addListener('mouseover', function (event) {
-                                for (j in connectionArray) {
-                                    if (google.maps.geometry.poly.isLocationOnEdge(event.latLng, connectionArray[j].pathOnMap, 0.005)) {
-                                        if (connectionArray[j].type == 4 || connectionArray[j].type == 8 || connectionArray[j].type == 9) {
-                                            infowindow.setContent(connectionArray[j].summary);
-                                        }
-                                        if (connectionArray[j].type == 6 || connectionArray[j].type == 8 || connectionArray[j].type == 9) {
-                                            infowindow.setContent("Public Transport");
-                                        }
-                                        /*if (connectionArray[j].type == 4 || connectionArray[j].type == 8 || connectionArray[j].type == 9) {
-                                            infowindow.setContent(connectionArray[j].summary);
-                                        }*/
-                                        infowindow.setPosition(event.latLng);
-                                        infowindow.open(map);
-                                    }
-                                }
-
-                            });
-
-                            map.fitBounds(bounds);
-                            connectionArray[i].pathOnMap.setMap(map);
                         }
                         //happens if no results were found
                         if (conText == "") {
@@ -165,7 +132,7 @@
           }
         }
     </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxV8w1QJyiHDrNwwqDOpZHQT9FMChINH0&libraries=places&callback=initMap" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhieKypOeAVC9O1rD2y7SoSEgESt0S8ao&libraries=places&callback=initMap" async defer></script>
 
 
 
