@@ -55,6 +55,9 @@
         var originAutoComplete;
         var destinationAutoComplete;
         var bounds;
+        var PolylineMap = new Map();
+        var idString = "";
+        var idString2 = "";
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
@@ -70,6 +73,8 @@
         }
 
         function addPolyline(){
+            idString = "";
+            idString2 = "";
             if(CheckInput.checkRequest() == "OK") {
                 var xmlhttp = new XMLHttpRequest();
                 var bounds = new google.maps.LatLngBounds();
@@ -105,7 +110,8 @@
                         document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
 
                     }
-                    //document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
+                    document.getElementById("demo2").innerHTML = "<br><br>" + idString;
+                    document.getElementById("demo3").innerHTML = "<br><br>" + idString2;
                 };
 
 
@@ -118,18 +124,18 @@
             }
       }
 
-        /*function _(el){
-            return document.getElementById(el);
-        }
-
-        function progressHandler(event){
-            _("status").innerHTML = event.target.responseText;
-        }*/
-
       function removeAllLines(){
-          for (i in connectionArray){
+          PolylineMap.forEach(function(value, key) {
+              if(value.pathOnMap) {
+                  value.pathOnMap.setMap(null);
+              }
+              //value.setMap(null);
+              //idString2 = idString2 + "-" + key;
+          });
+           //removeLine(connectionArray, -1);
+          /*for (i in connectionArray){
               connectionArray[i].pathOnMap.setMap(null);
-          }
+          }*/
         }
     </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhieKypOeAVC9O1rD2y7SoSEgESt0S8ao&libraries=places&callback=initMap" async defer></script>
