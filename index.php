@@ -58,6 +58,7 @@
         var PolylineMap = new Map();
         var idString = "";
         var idString2 = "";
+        var test;
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
@@ -68,6 +69,7 @@
             originAutoComplete = new google.maps.places.Autocomplete(document.getElementById('enterOrigin'));
             destinationAutoComplete = new google.maps.places.Autocomplete(document.getElementById('enterDestination'));
 
+            test = 1;
             bounds = new google.maps.LatLngBounds();
             infowindow = new google.maps.InfoWindow();
         }
@@ -75,53 +77,58 @@
         function addPolyline(){
             idString = "";
             idString2 = "";
+            removeAllLines();
+
             if(CheckInput.checkRequest() == "OK") {
                 var xmlhttp = new XMLHttpRequest();
                 var bounds = new google.maps.LatLngBounds();
                 var requestObject = ExampleRequestObjects.getRequestObject(document.forms['form1'].elements['example'].value);
 
-                removeAllLines();
+
 
                 //document.getElementById("demo1").innerHTML = "." + document.forms['form1'].elements['returnDate'].value + ".";
 
-                xmlhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        var conText = "";
-                        connectionArray = JSON.parse(this.responseText);
-                        for (i in connectionArray) {
 
-                            //brings the Dates from the JSON in a date js object
-                            connectionArray[i] = JsonConverter.convertConnectionDates(connectionArray[i]);
+                    xmlhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var conText = "";
+                            connectionArray = JSON.parse(this.responseText);
+                            for (i in connectionArray) {
 
-                            //Text output of Connection
-                            conText += ConnectionTextOutput.getText(connectionArray[i]);
+                                //brings the Dates from the JSON in a date js object
+                                connectionArray[i] = JsonConverter.convertConnectionDates(connectionArray[i]);
 
-                            //Draw polylines on the map
-                            connectionArray[i] = drawPolyline(connectionArray[i], 1);
+                                //Text output of Connection
+                                conText += ConnectionTextOutput.getText(connectionArray[i]);
 
+                                //Draw polylines on the map
+                                connectionArray[i] = drawPolyline(connectionArray[i], 1);
+
+
+                            }
+                            //happens if no results were found
+                            if (conText == "") {
+                                conText = "<div class='connectionTextBox'> No results available </div>";
+                            }
+                            document.getElementById("demo").innerHTML = conText;
+                            /**/
+                            document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
 
                         }
-                        //happens if no results were found
-                        if (conText == "") {
-                            conText = "<div class='connectionTextBox'> No results available </div>";
-                        }
-                        document.getElementById("demo").innerHTML = conText;
-                        /**/
-                        document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
-
-                    }
-                    document.getElementById("demo2").innerHTML = "<br><br>" + idString;
-                    document.getElementById("demo3").innerHTML = "<br><br>" + idString2;
-                };
+                        //document.getElementById("demo2").innerHTML = "<br><br>" + idString;
+                        //document.getElementById("demo3").innerHTML = "<br><br>" + idString2;
+                    };
 
 
-                xmlhttp.open("POST", "ConnectionAPI.php", true);
-                xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xmlhttp.send("request=" + JSON.stringify(requestObject));
+                    xmlhttp.open("POST", "ConnectionAPI.php", true);
+                    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xmlhttp.send("request=" + JSON.stringify(requestObject));
             } else{
 
                 alert(CheckInput.getErrorMessage(CheckInput.checkRequest()));
             }
+            document.getElementById("demo2").innerHTML = "<br><br>" + idString;
+            document.getElementById("demo3").innerHTML = "<br><br>" + idString2;
       }
 
       function removeAllLines(){

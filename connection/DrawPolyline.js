@@ -11,6 +11,7 @@ function drawPolyline(connection, level){
         }
         return connection;
     }else {
+        //sleepFor(2000);
         if(connection.action == "add") {
             //use polyline as first choise for path calculation if available, otherwise use origin and destination coordinates
             var latLngArray;
@@ -61,10 +62,10 @@ function drawPolyline(connection, level){
 
             return connection;
         }
-        if(connection.action == "remove"){
+        if(connection.action == "remove" && document.forms['form1'].elements['view'].value == 1){
             removeLine(connection.id)
             //idString2 = idString2 + " - " + connection.id;
-        }
+        }/**/
     }
 
 }
@@ -88,23 +89,10 @@ function removeLine(id) {
             }
         }
     }/**/
-    //PolylineMap.get(id).setMap(null);
+}
 
 
-
-
-
-    /*for(c in con){
-        if(c.id == id || id == -1){
-            if(c.pathOnMap) {
-                c.pathOnMap.setMap(null);
-            }
-            if(c.subConnections.length > 0){
-                removeLine(c.subConnections, -1);
-            }
-        }
-        /*if(c.subConnections.length > 0){
-            removeLine(c.subConnections, id);
-        }
-    }*/
+function sleepFor( sleepDuration ){
+    var now = new Date().getTime();
+    while(new Date().getTime() < now + sleepDuration){ /* do nothing */ }
 }

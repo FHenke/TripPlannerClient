@@ -62,6 +62,10 @@
                     <option value=3>Level 3</option>
                     <option value=4>Level 4</option>
                 </select><br>
+                <select class="selectField" name="view" id="view">
+                    <option value=1>Plain connection</option>
+                    <option value=2>All Connections</option>
+                </select><br>
             </div>
         </div>
     </form>
