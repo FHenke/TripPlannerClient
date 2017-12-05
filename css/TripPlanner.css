@@ -24,8 +24,14 @@ div.connectionTextBox{
     width: 95%;
     display: block;
     background-color: lightsteelblue;
+    border-color: #1e4d8A;
+    border-style: groove;
     /*float: left;*/
     overflow: auto;
+}
+
+div.connectionTextBox1{
+    border-style: none;
 }
 
 /*Top Menu Bar*/

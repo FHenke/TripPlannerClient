@@ -35,7 +35,8 @@
                     <option value="GoogleMapsDistance">Google Distance</option>
                     <option value="GoogleMapsDirection">Google Direction</option>
                     <option value="SkyscannerCacheOnly">Skyscanner Cache</option>
-                    <option value="All">All Available</option>
+                    <option value="eStreamingCacheOnly">eStreaming Cache</option>
+                    <option value="FFC">Find First Connection</option>
                 </select><br>
                 <select class="selectField" name="departure-arrival" id="departure_arrival">
                     <option value="setDepartureTime">Set Departure Time</option>

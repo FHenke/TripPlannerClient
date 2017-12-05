@@ -1,6 +1,6 @@
 var JsonConverter = {
 
-    convertConnectionDates: function(connection){
+    convertConnectionDates: function(connection, level){
         //if duration exists parse it from String to Date
         if(typeof connection.duration !== 'undefined') {
             connection.duration = this.convertDuration(connection.duration);
@@ -13,6 +13,15 @@ var JsonConverter = {
         if(typeof connection.arrivalDate !== 'undefined') {
             connection.arrivalDate = this.convertDate(connection.arrivalDate);
         }
+
+        if(connection.subConnections.length > 0 && level < document.forms['form1'].elements['level'].value && connection.action == "add") {
+
+            for(k in connection.subConnections){
+                connection.subConnections[k] = this.convertConnectionDates(connection.subConnections[k], level+1);
+            }
+
+        }
+
         return connection;
     },
 

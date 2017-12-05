@@ -96,13 +96,13 @@
                             for (i in connectionArray) {
 
                                 //brings the Dates from the JSON in a date js object
-                                connectionArray[i] = JsonConverter.convertConnectionDates(connectionArray[i]);
-
-                                //Text output of Connection
-                                conText += ConnectionTextOutput.getText(connectionArray[i]);
+                                connectionArray[i] = JsonConverter.convertConnectionDates(connectionArray[i], 1);
 
                                 //Draw polylines on the map
                                 connectionArray[i] = drawPolyline(connectionArray[i], 1);
+
+                                //Text output of Connection
+                                conText += ConnectionTextOutput.getRecursiveText(connectionArray[i], 1);
 
 
                             }
