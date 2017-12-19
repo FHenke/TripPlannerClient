@@ -115,20 +115,22 @@
                             document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
 
                         }
-                        //document.getElementById("demo2").innerHTML = "<br><br>" + idString;
-                        //document.getElementById("demo3").innerHTML = "<br><br>" + idString2;
+                        document.getElementById("demo2").innerHTML = "<br><br>" + idString;
+                        document.getElementById("demo3").innerHTML = "<br><br>" + idString2;
                     };
 
 
                     xmlhttp.open("POST", "ConnectionAPI.php", true);
                     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                     xmlhttp.send("request=" + JSON.stringify(requestObject));
+
+                //document.getElementById("demo2").innerHTML = "<br><br>" + idString;
+                //document.getElementById("demo3").innerHTML = "<br><br>" + idString2;
             } else{
 
                 alert(CheckInput.getErrorMessage(CheckInput.checkRequest()));
             }
-            document.getElementById("demo2").innerHTML = "<br><br>" + idString;
-            document.getElementById("demo3").innerHTML = "<br><br>" + idString2;
+
       }
 
       function removeAllLines(){

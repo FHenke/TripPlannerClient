@@ -24,7 +24,6 @@ function drawPolyline(connection, level){
 
 
             connection.pathOnMap = new google.maps.Polyline({
-                //var pathOnMap = new google.maps.Polyline({
                 path: this.latLngArray,
                 geodesic: true,
                 strokeColor: Colors.nextColor(),
@@ -35,60 +34,71 @@ function drawPolyline(connection, level){
             bounds = Bounds.setBounds(this.latLngArray, bounds);
 
             connection.pathOnMap.addListener('mouseover', function (event) {
-                //pathOnMap.addListener('mouseover', function (event) {
-                infowindow.setContent(ConnectionTextOutput.getTransport(connection.type) + "<br>via " + connection.summary + " - " + connection.id);
+                infowindow.setContent(ConnectionTextOutput.getTransport(connection.type) + "<br>via " + connection.summary + "<br>" + connection.id);
                 infowindow.setPosition(event.latLng);
                 infowindow.open(map);
             });
 
             map.fitBounds(bounds);
 
-
-            //if(PolylineMap.has(connection.id)) {
             if (PolylineMap.has(connection.id)) {
                 if (PolylineMap.get(connection.id).pathOnMap) {
                     removeLine(connection.id);
-                    //idString = idString + " ; " + connection.origin.name + " - " + connection.destination.name;
-                    //idString = idString + " ; " + connection.id;
                 }
             }
-        /**/
-            //pathOnMap.setMap(map);
-            connection.pathOnMap.setMap(map);
 
+            connection.pathOnMap.setMap(map);
             PolylineMap.set(connection.id, connection);
-            //PolylineMap.set(connection.id, pathOnMap);
-            //idString = idString + " ; " + connection.id;
+
+
 
             return connection;
         }
-        if(connection.action == "remove" && document.forms['form1'].elements['view'].value == 1){
-            removeLine(connection.id)
-            //idString2 = idString2 + " - " + connection.id;
-        }/**/
+        if(connection.action == "remove"){
+            if(document.forms['form1'].elements['view'].value == 1){
+                removeLine(connection.id);
+            }else{
+                setLineGrey(connection.id);
+            }
+        }
     }
 
 }
 
 function removeLine(id) {
-    //idString2 = idString2 + " - " + id;
     if (PolylineMap.has(id)) {
-        //idString2 = idString2 + " --> " + PolylineMap.get(id).action;
         if (PolylineMap.get(id).pathOnMap) {
             PolylineMap.get(id).pathOnMap.setMap(null);
-
         }
 
         if (PolylineMap.get(id).subConnections) {
-            //idString2 = idString2 + " --> " + id;
             if (PolylineMap.get(id).subConnections.length > 0) {
-                //idString2 = idString2 + " --> " + id;
                 for (con in PolylineMap.get(id).subConnections) {
                     removeLine(PolylineMap.get(id).subConnections[con].id);
-                }/**/
+                }
             }
         }
-    }/**/
+    }
+}
+
+function setLineGrey(id) {
+    if (PolylineMap.has(id)) {
+        if (PolylineMap.get(id).pathOnMap) {
+            PolylineMap.get(id).pathOnMap.strokeColor = Colors.getGrey();
+
+            //Map has to set null and to set to map afterwards again, otherwise it wount work this function is called by the request of a second connection
+            PolylineMap.get(id).pathOnMap.setMap(null);
+            PolylineMap.get(id).pathOnMap.setMap(map);
+        }
+
+        if (PolylineMap.get(id).subConnections) {
+            if (PolylineMap.get(id).subConnections.length > 0) {
+                for (con in PolylineMap.get(id).subConnections) {
+                    setLineGrey(PolylineMap.get(id).subConnections[con].id);
+                }
+            }
+        }
+    }
 }
 
 
