@@ -111,12 +111,16 @@
                                 conText = "<div class='connectionTextBox'> No results available </div>";
                             }
                             document.getElementById("demo").innerHTML = conText;
-                            /**/
-                            document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
+
+                            if(document.forms['form1'].elements['debugInfo'].checked) {
+                                document.getElementById("demo10").innerHTML = "<br><br>" + this.responseText;
+                            }
 
                         }
-                        document.getElementById("demo2").innerHTML = "<br><br>" + idString;
-                        document.getElementById("demo3").innerHTML = "<br><br>" + idString2;
+                        if(document.forms['form1'].elements['debugInfo'].checked) {
+                            document.getElementById("demo2").innerHTML = "<br><br>" + idString;
+                            document.getElementById("demo3").innerHTML = "<br><br>" + idString2;
+                        }
                     };
 
 

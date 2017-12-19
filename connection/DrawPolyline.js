@@ -50,8 +50,6 @@ function drawPolyline(connection, level){
             connection.pathOnMap.setMap(map);
             PolylineMap.set(connection.id, connection);
 
-
-
             return connection;
         }
         if(connection.action == "remove"){

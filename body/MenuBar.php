@@ -67,6 +67,7 @@
                     <option value=1>Plain connection</option>
                     <option value=2>All Connections</option>
                 </select><br>
+                <input id="debugInfo" type="checkbox" value="debugInfo" class="optionCheckbox"><menuText>Show Debug Info</menuText><br>
             </div>
         </div>
     </form>
