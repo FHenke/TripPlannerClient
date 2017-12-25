@@ -34,7 +34,8 @@ function drawPolyline(connection, level){
             bounds = Bounds.setBounds(this.latLngArray, bounds);
 
             connection.pathOnMap.addListener('mouseover', function (event) {
-                infowindow.setContent(ConnectionTextOutput.getTransport(connection.type) + "<br>via " + connection.summary + "<br>" + connection.id);
+                infowindow.setContent(ConnectionTextOutput.getTransport(connection.type) + "<br>via " + connection.summary);
+                //infowindow.setContent(ConnectionTextOutput.getTransport(connection.type) + "<br>via " + connection.summary + "<br>" + connection.id);
                 infowindow.setPosition(event.latLng);
                 infowindow.open(map);
             });
