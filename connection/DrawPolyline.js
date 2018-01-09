@@ -3,7 +3,7 @@ function drawPolyline(connection, level){
     if(connection.subConnections.length > 0 && level < document.forms['form1'].elements['level'].value){
         //document.getElementById("demo2").innerHTML = connection.subConnections[0].polyline;
         for(k in connection.subConnections){
-            if(!PolylineMap.has(connection.subConnections[k].id) && connection.subConnections[k].action == "add"){
+            if(!PolylineMap.has(connection.subConnections[k].id) && (connection.subConnections[k].action == "add" || connection.subConnections[k].action == "un")){
                 PolylineMap.set(connection.subConnections[k].id, connection.subConnections[k]);
                 //idString = idString + " ; " + connection.subConnections[k].id + "->" + connection.subConnections[k].action;
             }
@@ -12,7 +12,7 @@ function drawPolyline(connection, level){
         return connection;
     }else {
         //sleepFor(2000);
-        if(connection.action == "add") {
+        if(connection.action == "add" || (connection.action == "un" && document.forms['form1'].elements['view'].value == 2)) {
             //use polyline as first choise for path calculation if available, otherwise use origin and destination coordinates
             var latLngArray;
             if (connection.polyline) {
@@ -22,15 +22,26 @@ function drawPolyline(connection, level){
                 this.latLngArray = GeneratePolyline.coordinateArray.fromOriginDestination(connection.origin, connection.destination);
             }
 
+            if(connection.action == "add") {
+                connection.pathOnMap = new google.maps.Polyline({
+                    path: this.latLngArray,
+                    geodesic: true,
+                    strokeColor: Colors.nextColor(),
+                    strokeOpacity: 1.0,
+                    strokeWeight: 4
+                });
+            }
+            if(connection.action == "un") {
+                connection.pathOnMap = new google.maps.Polyline({
+                    path: this.latLngArray,
+                    geodesic: true,
+                    strokeColor: Colors.getGrey(),
+                    strokeOpacity: 1.0,
+                    strokeWeight: 4
+                });
+            }
 
-            connection.pathOnMap = new google.maps.Polyline({
-                path: this.latLngArray,
-                geodesic: true,
-                strokeColor: Colors.nextColor(),
-                strokeOpacity: 1.0,
-                strokeWeight: 4
-            });
-            //sets the coordinates to the bounds to adjust the map center and zoom afterwards
+                //sets the coordinates to the bounds to adjust the map center and zoom afterwards
             bounds = Bounds.setBounds(this.latLngArray, bounds);
 
             connection.pathOnMap.addListener('mouseover', function (event) {

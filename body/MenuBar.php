@@ -38,6 +38,7 @@
                     <option value="eStreamingCacheOnly">eStreaming Cache</option>
                     <option value="FFC">Find First Connection</option>
                     <option value="OutboundConnections">Outbound Connections</option>
+                    <option value="BFS">Breadth First Search</option>
                 </select><br>
                 <select class="selectField" name="departure-arrival" id="departure_arrival">
                     <option value="setDepartureTime">Set Departure Time</option>

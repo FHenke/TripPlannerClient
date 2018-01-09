@@ -14,7 +14,7 @@ var JsonConverter = {
             connection.arrivalDate = this.convertDate(connection.arrivalDate);
         }
 
-        if(connection.subConnections.length > 0 && level < document.forms['form1'].elements['level'].value && connection.action == "add") {
+        if(connection.subConnections.length > 0 && level < document.forms['form1'].elements['level'].value && (connection.action == "add" || connection.action == "un")) {
 
             for(k in connection.subConnections){
                 connection.subConnections[k] = this.convertConnectionDates(connection.subConnections[k], level+1);
