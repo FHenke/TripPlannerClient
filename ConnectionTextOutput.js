@@ -204,10 +204,12 @@ var ConnectionTextOutput = {
             //departure and arrival date
             if(connection.departureDate || connection.arrivalDate) {
                 if (connection.departureDate && connection.origin) {
-                    connectionString += "(" + TimeZone.getLocal(connection.departureDate, {lat: connection.origin.latitude, lng: connection.origin.longitude}).toUTCString() + ")";
+                    //connectionString += "(" + TimeZone.getLocal(connection.departureDate, {lat: connection.origin.latitude, lng: connection.origin.longitude}).toUTCString() + ")";
+                    connectionString += "(" + connection.departureDate.toUTCString() + ")";
                 }
                 if(connection.arrivalDate){
-                    connectionString += " - (" + TimeZone.getLocal(connection.arrivalDate, {lat: connection.origin.latitude, lng: connection.origin.longitude}).toUTCString() + ")";
+                    //connectionString += " - (" + TimeZone.getLocal(connection.arrivalDate, {lat: connection.origin.latitude, lng: connection.origin.longitude}).toUTCString() + ")";
+                    connectionString += " - (" + connection.arrivalDate.toUTCString() + ")";
                 }
                 connectionString += "<br>";
             }
