@@ -26,9 +26,9 @@ function drawPolyline(connection, level){
                 connection.pathOnMap = new google.maps.Polyline({
                     path: this.latLngArray,
                     geodesic: true,
-                    strokeColor: Colors.nextColor(),
+                    strokeColor: Colors.getColor(),
                     strokeOpacity: 1.0,
-                    strokeWeight: 4
+                    strokeWeight: 2
                 });
             }
             if(connection.action == "un") {
@@ -37,7 +37,7 @@ function drawPolyline(connection, level){
                     geodesic: true,
                     strokeColor: Colors.getGrey(),
                     strokeOpacity: 1.0,
-                    strokeWeight: 4
+                    strokeWeight: 2
                 });
             }
 

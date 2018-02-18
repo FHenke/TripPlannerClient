@@ -15,7 +15,7 @@ var ExampleRequestObjects = {
             },
             departureDateEpochTime: TimeZone.getUTCFromText(document.forms['form1'].elements['date'].value, {lat: originAutoComplete.getPlace().geometry.location.lat(), lng: originAutoComplete.getPlace().geometry.location.lng()}),
             //returnDateEpochTime: TimeZone.getUTCFromText(document.forms['form1'].elements['returnDate'].value, {lat: departureAutoComplete.getPlace().geometry.location.lat(), lng: departureAutoComplete.getPlace().geometry.location.lng()}),
-            isDeparture: checkIfDepartureTime(document.forms['form1'].elements['departure_arrival'].value),
+            isDepartureTime: checkIfDepartureTime(document.forms['form1'].elements['departure_arrival'].value),
             showAlternatives: true,
             transportation: [document.forms['form1'].elements['car'].checked,
                 document.forms['form1'].elements['public_transport'].checked,

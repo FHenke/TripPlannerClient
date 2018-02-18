@@ -94,7 +94,9 @@
                             var conText = "";
                             connectionArray = JSON.parse(this.responseText);
                             for (i in connectionArray) {
-
+                                if(document.forms['form1'].elements['color'].value == "ConnectionColor") {
+                                    Colors.nextColor();
+                                }
                                 //brings the Dates from the JSON in a date js object
                                 connectionArray[i] = JsonConverter.convertConnectionDates(connectionArray[i], 1);
 
@@ -142,13 +144,7 @@
               if(value.pathOnMap) {
                   value.pathOnMap.setMap(null);
               }
-              //value.setMap(null);
-              //idString2 = idString2 + "-" + key;
           });
-           //removeLine(connectionArray, -1);
-          /*for (i in connectionArray){
-              connectionArray[i].pathOnMap.setMap(null);
-          }*/
         }
     </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhieKypOeAVC9O1rD2y7SoSEgESt0S8ao&libraries=places&callback=initMap" async defer></script>

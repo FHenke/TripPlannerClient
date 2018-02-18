@@ -13,5 +13,13 @@ var Colors = {
 
     currentColor: function(){
         return this.colorArray[this.totalNumber % this.colorArray.length];
+    },
+
+    getColor: function(){
+        if(document.forms['form1'].elements['color'].value == "ConnectionColor") {
+            return this.currentColor();
+        }else{
+            return this.nextColor();
+        }
     }
 }

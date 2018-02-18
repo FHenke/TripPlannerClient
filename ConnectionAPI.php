@@ -44,7 +44,8 @@ $address = gethostbyname('localhost');
 
 //echo "Lese Response:\n\n";
     $buf = 'Dies ist mein Puffer.';
-    if (false !== ($bytes = socket_recv($socket, $buf, 16384000, MSG_WAITALL))) {
+    // 16384000
+    if (false !== ($bytes = socket_recv($socket, $buf, 56384000, MSG_WAITALL))) {
         //echo "Las $bytes bytes von socket_recv(). Schliesse Socket...";
     } else {
         echo "socket_recv() schlug fehl; Grund: " . socket_strerror(socket_last_error($socket)) . "\n";

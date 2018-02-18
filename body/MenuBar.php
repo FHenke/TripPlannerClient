@@ -39,14 +39,16 @@
                     <option value="FFC">Find First Connection</option>
                     <option value="OutboundConnections">Outbound Connections</option>
                     <option value="BFS">Breadth First Search</option>
+                    <option value="Hotspots">Hotspots</option>
+                    <option value="HotspotPath">Hotspot Path</option>
                 </select><br>
                 <select class="selectField" name="departure-arrival" id="departure_arrival">
                     <option value="setDepartureTime">Set Departure Time</option>
                     <option value="setArrivalTime">Set Arrival Time</option>
                 </select><br>
                 <select class="selectField" name="color" id="color">
-                    <option value="googleDirection">One Color For Each Connection</option>
-                    <option value="googleDirection">One Color For Each Transportation</option>
+                    <option value="ConnectionColor">One Color For Each Connection</option>
+                    <option value="FlightColor">One Color For Each Transportation</option>
                 </select><br>
                 <select class="selectField" name="example" id="example">
                     <option value="noEx">No Example</option>
