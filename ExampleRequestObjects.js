@@ -23,6 +23,7 @@ var ExampleRequestObjects = {
                 document.forms['form1'].elements['walk'].checked,
                 document.forms['form1'].elements['airplane'].checked
             ],
+            priceForHoure: Math.round(Math.pow(document.forms['form1'].elements['priceForHoure'].value, 1.5)),
             avoid: null,
             language: "de",
             methode: document.forms['form1'].elements['method'].value

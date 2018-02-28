@@ -37,6 +37,7 @@
                     <option value="SkyscannerCacheOnly">Skyscanner Cache</option>
                     <option value="eStreamingCacheOnly">eStreaming Cache</option>
                     <option value="FFC">Find First Connection</option>
+                    <option value="Database">Request Database</option>
                     <option value="OutboundConnections">Outbound Connections</option>
                     <option value="BFS">Breadth First Search</option>
                     <option value="Hotspots">Hotspots</option>
@@ -71,6 +72,9 @@
                     <option value=1>Plain connection</option>
                     <option value=2>All Connections</option>
                 </select><br>
+                <label class="menuCheckbox" for="fader">Price per houre:</label>
+                <input type="range" id="priceForHoure" min="0" value="20" max="100" step="1" oninput="outputUpdate(value)">
+                <output for="fader" id="price">20 €/h</output><br>
                 <input id="debugInfo" type="checkbox" value="debugInfo" class="optionCheckbox"><menuText>Show Debug Info</menuText><br>
             </div>
         </div>
