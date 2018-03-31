@@ -64,6 +64,10 @@
             document.querySelector('#price').value = Math.round(Math.pow(price, 1.5))  + " €/h";
         }
 
+        function outputUpdate2(kmh) {
+            document.querySelector('#kmh').value = kmh  + " km/h";
+        }
+
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: zoom,

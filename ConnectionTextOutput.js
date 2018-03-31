@@ -242,10 +242,19 @@ var ConnectionTextOutput = {
 
             //price
             if(connection.price){
-                connectionString += "--> " + connection.price + " Euro <br>";
+                connectionString += "--> " + connection.price.toFixed(2) + " Euro ";
             }
 
 
+            if(connection.price && connection.duration){
+                var durationHour = connection.duration.getTime() / 3600000;
+                var virtualPrice = (durationHour * Math.round(Math.pow(document.forms['form1'].elements['priceForHoure'].value, 1.5))) + connection.price;
+                connectionString += "(" + virtualPrice.toFixed(2) + ")";
+            }
+
+            connectionString += "<br>";
+
+            //connectionString += connection.direct + ": " + connection.connectionNumber + "<br>";
 
             var subConnectionString = "";
             //Recursive call of sub connections
